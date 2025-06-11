@@ -1,0 +1,10 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: My First Article
+  about: This is a short summary about the first article.
+  description: MyString
+two:
+  title: My Seccond Article
+  about: A brief overview of the second article.
+  description: MyString
