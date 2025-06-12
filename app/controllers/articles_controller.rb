@@ -9,12 +9,15 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    # binding.break
     if @article.save
       redirect_to articles_path
     else
       render :new
     end
+  end
+
+  def show
+    @ariticle = Article.find(:id)
   end
 
   def edit
