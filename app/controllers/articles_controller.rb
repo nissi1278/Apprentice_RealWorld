@@ -9,6 +9,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    # binding.break
     if @article.save
       redirect_to articles_path
     else
@@ -25,7 +26,7 @@ class ArticlesController < ApplicationController
   def delete
   end
 
-  def article_params()
+  def article_params
     params.require(:article).permit(:title, :about, :description)
   end
 end
