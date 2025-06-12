@@ -5,6 +5,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
+    @article = Article.new
   end
 
   def create
@@ -31,8 +32,10 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    if @article
-      @article.destroy
+    if @article.destroy
+      redirect_to articles_path
+    else
+      redirect_to article_path(@article)
     end
   end
 
