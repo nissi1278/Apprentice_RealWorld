@@ -1,0 +1,5 @@
+.article-meta {
+  display: flex; /* Flexboxコンテナにする */
+  gap: 10px; /* ボタン間のスペース */
+  /* align-items: center; */ /* 必要なら垂直方向の配置 */
+}
