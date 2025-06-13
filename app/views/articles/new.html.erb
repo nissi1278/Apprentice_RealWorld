@@ -25,8 +25,8 @@
                 <div class="form-group">
                     <input type="text" id="tag_input" class="form-control" placeholder="Enter tag name">
                     <ul class="tag-list" id="tag-list">
-                        <li class="tag-default tag-pill">tag</li>
                     </ul>
+                    <%= form.hidden_field :tag_list, id: 'article_tag_list' %>
                 </div>
                 <%= form.submit "Publish Article",class: "btn btn-lg pull-xs-right btn-primary" %>
                 <% end %>
@@ -34,4 +34,3 @@
         </div>
     </div>
 </div>
-<script src="../../aseets/javascripts/articles.js"></script>
