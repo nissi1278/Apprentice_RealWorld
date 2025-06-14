@@ -3,3 +3,7 @@
   gap: 10px; /* ボタン間のスペース */
   /* align-items: center; */ /* 必要なら垂直方向の配置 */
 }
+
+.create-btn {
+  float: right;
+}

@@ -1,7 +1,8 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :set_article, only: [ :show, :edit, :update, :destroy ]
   def index
-    @articles = Article.all
+    # N1問題対策であらかじめincludeしておく
+    @articles = Article.includes(:user).all
   end
 
   def new
@@ -13,7 +14,7 @@ class ArticlesController < ApplicationController
     if @article.save
       redirect_to articles_path
     else
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 
@@ -27,7 +28,7 @@ class ArticlesController < ApplicationController
     if @article.update(article_new_params)
       redirect_to article_path(@article)
     else
-      render :edit, status: :unprocessable_entity
+      render :edit
     end
   end
 
