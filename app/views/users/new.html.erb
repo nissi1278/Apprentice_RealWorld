@@ -1,26 +1,30 @@
-<div class="auth-page">
+ <div class="auth-page">
     <div class="container page">
         <div class="row">
             <div class="col-md-6 offset-md-3 col-xs-12">
-                <h1 class="text-xs-center">Sign in</h1>
+                <h1 class="text-xs-center">Sign up</h1>
                 <p class="text-xs-center">
-                    <a href="/register">Need an account?</a>
+                    <%= link_to "Already have an acount?", new_session_path, class: "nav-link" %>
                 </p>
 
                 <ul class="error-messages">
-                    <li>That email is already taken</li>
+                    <% if @user&.errors.any? %>
+                        <%= @user.errors.each do |error| %>
+                            <li><%= error.full_message %></li>
+                        <% end %>
+                    <% end %>
                 </ul>
 
                 <%= form_with model: @user, local: true do |form| %>
-                <div class="form-group">
-                    <%= form.email_field :email, class: "form-control form-control-lg", placeholder: "Email"%>
-                </div>
-                <div class="form-group">
-                    <%= form.password_field :password, class: "form-control form-control-lg", placeholder: "Password"%>
-                </div>
-                <%= form.submit "Sign in", class: "btn btn-lg btn-primary pull-xs-right"%>
+                    <div class="form-group">
+                        <%= form.email_field :email, class: "form-control form-control-lg", placeholder: "Email"%>
+                    </div>
+                    <div class="form-group">
+                        <%= form.password_field :password, class: "form-control form-control-lg", placeholder: "Password"%>
+                    </div>
+                    <%= form.submit "Sign up", class: "btn btn-lg btn-primary pull-xs-right"%>
                 <% end %>
             </div>
         </div>
     </div>
-</div>
+</div> 
