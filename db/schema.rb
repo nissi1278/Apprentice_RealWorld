@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_14_021955) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_14_055349) do
   create_table "article_tags", force: :cascade do |t|
     t.integer "article_id", null: false
     t.integer "tag_id", null: false
@@ -41,6 +41,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_14_021955) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.string "name"
   end
 
   add_foreign_key "article_tags", "articles"
