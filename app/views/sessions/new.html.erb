@@ -8,7 +8,11 @@
                 </p>
 
                 <ul class="error-messages">
-                    <li>That email is already taken</li>
+                    <% if @user&.errors.any? %>
+                        <%= @user.errors.each do |error| %>
+                            <li><%= error.full_message %></li>
+                        <% end %>
+                    <% end %>
                 </ul>
 
                 <%= form_with model: @session, local: true do |form| %>
