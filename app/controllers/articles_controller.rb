@@ -1,8 +1,12 @@
 class ArticlesController < ApplicationController
+  before_action :require_login, only: [ :new, :create, :edit, :update, :destroy ]
   before_action :set_article, only: [ :show, :edit, :update, :destroy ]
+  # edit, update, destroy アクションで記事の作成者かチェック
+  before_action :check_article_owner, only: [ :edit, :update, :destroy ]
+
   def index
-    # N1問題対策であらかじめincludeしておく
-    @articles = Article.includes(:user).all
+    @page = params[:page].to_i > 0 ? params[:page].to_i : 1
+    @articles = Article.page(@page).per(5)
   end
 
   def new
@@ -10,7 +14,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_new_params)
+    @article = current_user.articles.build(article_new_params)
     if @article.save
       redirect_to articles_path
     else
@@ -34,8 +38,10 @@ class ArticlesController < ApplicationController
 
   def destroy
     if @article.destroy
+      flash[:notice] = "記事の削除が成功しました。"
       redirect_to articles_path
     else
+      flash[:alert] = "記事の削除が失敗しました。"
       redirect_to article_path(@article)
     end
   end
@@ -44,9 +50,21 @@ private
   # 共通処理などはprivate内で定義
   def set_article
     @article = Article.find(params[:id])
+
+    # 記事が見つからなかった場合の例外を捕捉し、処理を終了してからリダイレクト
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = "お探しの記事は見つかりませんでした。"
+      redirect_to articles_path and return
   end
 
   def article_new_params
     params.require(:article).permit(:title, :about, :description)
+  end
+
+  def check_article_owner
+    unless current_user.id == @article.user_id
+      flash[:alert] = "この操作を行う権限がありません。"
+      redirect_to article_path(@article) and return
+    end
   end
 end

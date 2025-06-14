@@ -8,9 +8,9 @@
                 </p>
 
                 <ul class="error-messages">
-                    <% if @user&.errors.any? %>
-                        <%= @user.errors.each do |error| %>
-                            <li><%= error.full_message %></li>
+                     <% if @user.errors.any? %>
+                        <% @user.errors.each do |error| %>
+                           <li><%= error.full_message %></li>
                         <% end %>
                     <% end %>
                 </ul>

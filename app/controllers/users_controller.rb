@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(user_new_params)
     if @user.save
       session[:user_id] = @user.id
-      flash.now[:alert] = "ユーザ登録に成功しました。"
+      flash[:notice] = "ユーザ登録に成功しました。"
       redirect_to articles_path
     else
       flash.now[:alert] = "ユーザ登録に失敗しました。"
