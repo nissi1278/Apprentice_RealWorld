@@ -2,7 +2,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const tagInputArea = document.getElementById("tag_input");
   const tagList = document.getElementById("tag-list");
   const hiddenTaglist = document.getElementById("article_tag_list");
-
+  // const hiddenTagNamesField = document.getElementById('article_tag_names_hidden');
+  // let currentTags = 
+  //初期表示時(データ取得時)処理
   //タグの重複チェック
   function isTagAlreadyAdded(tagName) {
     const alreadyTags = tagList.querySelectorAll(".tag-items");

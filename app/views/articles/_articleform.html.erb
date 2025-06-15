@@ -20,13 +20,26 @@
                         <%= form.text_area :description, class: "form-control", rows: 8, placeholder: "Write your article (in markdown)" %>
                     </div>
                     <div class="form-group">
-                        <div class="tag-list">
-                            <span class="tag-default tag-pill"> <i class="ion-close-round"></i> tag </span>
+                        <%= form.text_area :description, class: "form-control", rows: 8, placeholder: "Write your article (in markdown)" %>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" id="tag_input" class="form-control" placeholder="Enter tag">
+                        <div id="tag-list">
+                            <% @article.tags.each do |tag| %>
+                                <span class="tag-default tag-pill">
+                                    <%= tag.name %> <i class="ion-close-round remove-tag"></i>
+                                </span>
+                            <% end %>
                         </div>
+                        <%= form.hidden_field :tag_name, value: @article.tags.map(&:name).join(','), id: 'article_tag_names_hidden' %>
                     </div>
                     <%= form.submit "Publish Article",class: "btn btn-lg pull-xs-right btn-primary" %>
                 <% end %>
             </div>
         </div>
     </div>
+<% content_for :add_Article_tags_js do %>
+  <%= javascript_include_tag "articles_script" %>
+<% end %>
 </div>
