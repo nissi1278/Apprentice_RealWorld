@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     def logged_in?
       !!current_user
     end
-    
+
     def require_login
       unless logged_in?
         flash[:alert] = "ログインまたはユーザ登録を行なってください。"

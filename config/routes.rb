@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   resources :sessions, only: [ :new, :create, :destroy ]
   resources :articles
 
-  get '*path', to: 'application#render_404'
+  get "*path", to: "application#render_404"
 end
