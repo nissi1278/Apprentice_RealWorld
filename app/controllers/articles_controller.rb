@@ -5,8 +5,9 @@ class ArticlesController < ApplicationController
   before_action :check_article_owner, only: [ :edit, :update, :destroy ]
 
   def index
+    MIN_PAGE_LIMIT = 5
     @page = params[:page].to_i > 0 ? params[:page].to_i : 1
-    @articles = Article.page(@page).per(5)
+    @articles = Article.page(@page).per(MIN_PAGE_LIMIT)
   end
 
   def new
