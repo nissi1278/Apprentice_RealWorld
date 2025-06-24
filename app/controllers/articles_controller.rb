@@ -15,7 +15,12 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = current_user.articles.build(article_new_params)
+    tag_name_list = params[:article][:tag_string].split(',').map(:&strip)
+    # タグの取得
+    tags = tag_name_list.map do |name|
+      Tag.find_orcreate_by(name: name)
+    end
+    @article = current_user.articles.build(article_new_params.except(:tags_string))
     if @article.save
       redirect_to articles_path
     else
@@ -59,7 +64,7 @@ private
   end
 
   def article_new_params
-    params.require(:article).permit(:title, :about, :description)
+    params.require(:article).permit(:title, :about, :description, :tag_string)
   end
 
   def check_article_owner
