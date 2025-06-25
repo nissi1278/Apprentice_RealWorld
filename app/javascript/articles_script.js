@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", (event) => {
   const tagInputArea = document.getElementById("tag_input");
   const tagList = document.getElementById("tag-list");
-  const hiddenTaglist = document.getElementById("article_tag_list");
-  // const hiddenTagNamesField = document.getElementById('article_tag_names_hidden');
-  // let currentTags = 
+  const hiddenTagNamesField = document.getElementById('article_tag_names_hidden');
+  let currentTags = []
   //初期表示時(データ取得時)処理
   //タグの重複チェック
   function isTagAlreadyAdded(tagName) {
@@ -23,6 +22,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     tagList.appendChild(tagElement);
     tagInputArea.textContent = "";
   }
+
   //タグの入力要素エンター時イベント
   tagInputArea.addEventListener("keydown", (event) => {
     if (event.key !== "Enter") {
@@ -35,12 +35,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
     if (tagContext !== "") {
       updateTagDisplay();
-      hiddenTaglist;
+      currentTags.push(tagContext)
+
+      const tagText = currentTags.toString()
+      hiddenTagNamesField.value = tagText
+      tagInputArea.value = ''
     }
   });
+
   //追加タグのクリック時の削除イベント
   tagList.addEventListener("click", (event) => {
     const targetTag = event.target;
+    currentTags = currentTags.filter((item) => {
+      return item !== targetTag.textContent
+    })
+
     tagList.removeChild(targetTag);
   });
 });

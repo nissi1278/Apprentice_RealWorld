@@ -28,7 +28,7 @@
                                 </span>
                             <% end %>
                         </div>
-                        <%= form.hidden_field :tag_name, value: @article.tags.map(&:name).join(','), id: 'article_tag_names_hidden' %>
+                        <%= form.hidden_field :tag_string, value: @article.tags.map(&:name).join(','), id: 'article_tag_names_hidden' %>
                     </div>
                     <%= form.submit "Publish Article",class: "btn btn-lg pull-xs-right btn-primary" %>
                 <% end %>

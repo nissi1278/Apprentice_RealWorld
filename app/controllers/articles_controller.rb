@@ -4,8 +4,9 @@ class ArticlesController < ApplicationController
   # edit, update, destroy アクションで記事の作成者かチェック
   before_action :check_article_owner, only: [ :edit, :update, :destroy ]
 
+  MIN_PAGE_LIMIT = 5
+
   def index
-    MIN_PAGE_LIMIT = 5
     @page = params[:page].to_i > 0 ? params[:page].to_i : 1
     @articles = Article.page(@page).per(MIN_PAGE_LIMIT)
   end
@@ -15,13 +16,16 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    tag_name_list = params[:article][:tag_string].split(',').map(:&strip)
-    # タグの取得
+    tag_name_list = params[:article][:tag_string].split(',').map(&:strip)
+
+    @article = current_user.articles.build(article_new_params.except(:tag_string))
+    # タグ名を取得し、更新
     tags = tag_name_list.map do |name|
-      Tag.find_orcreate_by(name: name)
+      Tag.find_or_create_by(name: name)
     end
-    @article = current_user.articles.build(article_new_params.except(:tags_string))
+  
     if @article.save
+      @article.tags << tags
       redirect_to articles_path
     else
       render :new
